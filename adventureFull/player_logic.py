@@ -1,3 +1,10 @@
+import random
+import os
+
+def clear_screen():
+    if os.name == "nt":
+        os.system('cls')
+
 def player_turn(player_stats, enemy_health):
     user_input = input("Was möchtest du tun? Angreifen oder Fliehen?: ").lower()
     clear_screen()
@@ -18,10 +25,10 @@ def player_turn(player_stats, enemy_health):
         return player_turn(enemy_health)
     
 def show_stats(player_stats):
-clear_screen()
-print(f"{player_stats['health']} Trefferpunkte von {player_stats['max_health']} maximalen Trefferpunkten")
-print(f"{player_stats['attack']} Schaden pro Angriff")
-print(f"{player_stats['money']} Münzen")
-print(f"{player_stats['difficulty']} Schwierigkeitsgrad") 
+    clear_screen()
+    print(f"{player_stats['health']} Trefferpunkte von {player_stats['max_health']} maximalen Trefferpunkten")
+    print(f"{player_stats['attack']} Schaden pro Angriff")
+    print(f"{player_stats['money']} Münzen")
+    print(f"{player_stats['difficulty']} Schwierigkeitsgrad") 
 
- input("Beliebige Taste drücken um Seite zu verlassen: ")
+    input("Beliebige Taste drücken um Seite zu verlassen: ")

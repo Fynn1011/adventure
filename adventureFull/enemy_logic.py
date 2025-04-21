@@ -1,6 +1,6 @@
 import random
 
-def spawn_enemy(difficulty_multi):
+def spawn_enemy(difficulty_multi, gegner_name_list, gegner_prefix_list, prefix_weight):
     prefix = random.choices(gegner_prefix_list, prefix_weight)[0]
     enemy_base = random.choice(gegner_name_list)
     enemy = prefix + " " + enemy_base
@@ -24,10 +24,10 @@ def enemy_turn(player_stats, enemy_attack, enemy):
         return player_stats["health"]
     else:
         player_stats["health"] = 0
-        print(f"{enemy} greift dich an und verursacht {enemy_attack} Schaden. Du hast noch {player_stats["health"]} Trefferpunkte. Du bist gestorben")
+        print(f"{enemy} greift dich an und verursacht {enemy_attack} Schaden. Du hast noch {player_stats['health']} Trefferpunkte. Du bist gestorben")
         print("Spiel beendet")
 
-def enemy_drop(player_stats):
+def enemy_drop(player_stats, drop_list, drop_heal, drop_buff):
     drop = random.choice(drop_list)
 
     if drop == drop_heal:
