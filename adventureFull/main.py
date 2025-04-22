@@ -2,6 +2,10 @@ from difficulty import difficulty
 from player_logic import player_turn, show_stats, clear_screen 
 from enemy_logic import spawn_enemy, enemy_turn, enemy_drop
 from shop import shop
+from playerItem import item_inventory
+from input_handling import input_handling
+
+input_list = ["shop", "inventar", "stats"]
 
 gegner_name_list = ["Troll", "Gnome", "Golem", "Ork"]
 gegner_prefix_list = ["", "Grausamer", "Mächtiger", "Uralter"]
@@ -29,10 +33,12 @@ item_shop = [max_health_up, player_attack_up, player_health_potion]
 
 drop_heal = {
     "name": "Heiltrank",
+    "effekt": "heal"
 }
 
 drop_buff = {
     "name": "Schadensboost",
+    "effekt": "dmg_boost"
 }
 
 drop_list = [drop_heal, drop_buff]
@@ -50,6 +56,15 @@ def main():
         "attack": 3,
         "money": 0,
         "difficulty": difficulty_multi
+    }
+
+    player_items = []
+
+    game_data = {
+    "input_list": input_list,
+    "item_shop": item_shop,
+    "player_stats": player_stats,
+    "item_inventory": player_items,
     }
     
     print(f"Ok {player_name}, du spielst das Spiel mit einem Gegner Trefferpunkt Multiplikator von {difficulty_multi * 100}%")
@@ -73,18 +88,10 @@ def main():
             if enemy['leben'] <= 0:
                 print(f"Du hast {enemy['name']} besiegt")
                 battle_active = False
-                player_stats = enemy_drop(player_stats, drop_list, drop_heal, drop_buff)
+                player_stats, player_items = enemy_drop(player_stats, drop_list, drop_heal, drop_buff, player_items)
                 player_stats["money"] = player_stats["money"] + 10
 
-                if input("Möchtest du dir deine aktuellen Werte anschauen? (Y/N): ").lower() == "y":
-                    clear_screen()
-                    show_stats(player_stats)
-                    clear_screen()
-
-                if input("Möchtest du den Shop besuchen? (Y/N): ").lower() == "y":
-                    clear_screen()
-                    player_stats = shop(player_stats, item_shop)
-                    clear_screen()
+                input_handling(game_data)
 
                 continue   
 

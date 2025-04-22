@@ -3,12 +3,7 @@ import random
 def spawn_enemy(difficulti_multi, gegner_name_list, gegner_prefix_list, prefix_weight):
     prefix = random.choices(gegner_prefix_list, prefix_weight)[0]
     enemy_base = random.choice(gegner_name_list)
-
-    if prefix == "":
-        enemy = enemy_base
-    else:
-        enemy = prefix + "" + enemy_base
-
+    enemy = prefix + "" + enemy_base
     health = random.randint(10, 20) * difficulti_multi
     angriff = random.randint(1, 6) * difficulti_multi
 
@@ -26,17 +21,6 @@ def spawn_enemy(difficulti_multi, gegner_name_list, gegner_prefix_list, prefix_w
         "angriff": angriff
     }    
     return enemy_stats
-
-def enemy_turn(player_stats, enemy_attack, enemy):
-    player_stats["health"] = player_stats["health"] - enemy_attack 
-    
-    if player_stats["health"] > 0:
-        print(f"{enemy} greift dich an und verursacht {enemy_attack} Schaden. Du hast noch {player_stats['health']} Trefferpunkte")
-        return player_stats["health"]
-    else:
-        player_stats["health"] = 0
-        print(f"{enemy} greift dich an und verursacht {enemy_attack} Schaden. Du hast noch {player_stats['health']} Trefferpunkte. Du bist gestorben")
-        print("Spiel beendet")
 
 def enemy_drop(player_stats, drop_list, drop_heal, drop_buff, player_items):
     drop = random.choice(drop_list)
@@ -60,4 +44,4 @@ def enemy_drop(player_stats, drop_list, drop_heal, drop_buff, player_items):
     else:
         player_items = player_items.append(drop)
 
-    return player_stats, player_items           
+    return player_stats, player_items    

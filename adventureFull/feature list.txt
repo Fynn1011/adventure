@@ -1,0 +1,3 @@
+-itembeutel hinzufügen
+-better fighting system
+-input dict
